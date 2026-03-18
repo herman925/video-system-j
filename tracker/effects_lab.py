@@ -518,21 +518,21 @@ async def tracker_effects_lab(client: Client) -> None:
         </style>
         ''')
 
-        rank_options = ''.join(
-                f'<option value="{rank}">{TIER_LABELS[rank]}</option>' for rank in TIER_ORDER
-        )
-        focus_html = ''.join(_focus_card(rank) for rank in TOP_TIER_RANKS)
-        gallery_html = ''.join(_gallery_card(rank) for rank in TIER_ORDER)
-        preview_host = pixi_badge_host(
-                DEFAULT_SCORES['diamond'],
-                size=272,
-                variant='diamond',
-                host_id='fxlab-preview-host',
-                extra_classes='fxlab-live-badge',
-                options={'controls': DEFAULT_CONTROLS['diamond']},
-        )
+    rank_options = ''.join(
+        f'<option value="{rank}">{TIER_LABELS[rank]}</option>' for rank in TIER_ORDER
+    )
+    focus_html = ''.join(_focus_card(rank) for rank in TOP_TIER_RANKS)
+    gallery_html = ''.join(_gallery_card(rank) for rank in TIER_ORDER)
+    preview_host = pixi_badge_host(
+        DEFAULT_SCORES['diamond'],
+        size=272,
+        variant='diamond',
+        host_id='fxlab-preview-host',
+        extra_classes='fxlab-live-badge',
+        options={'controls': DEFAULT_CONTROLS['diamond']},
+    )
 
-        ui.html(f'''
+    ui.html(f'''
         <div class="fxlab-root">
             <div class="fxlab-shell">
                 <div class="fxlab-top">
@@ -678,11 +678,11 @@ async def tracker_effects_lab(client: Client) -> None:
         </div>
         ''')
 
-        meta_json = json.dumps(RANK_META)
-        controls_json = json.dumps(DEFAULT_CONTROLS)
-        scores_json = json.dumps(DEFAULT_SCORES)
+    meta_json = json.dumps(RANK_META)
+    controls_json = json.dumps(DEFAULT_CONTROLS)
+    scores_json = json.dumps(DEFAULT_SCORES)
 
-        ui.add_body_html(f'''
+    ui.add_body_html(f'''
         <script>
         (() => {{
             const rankMeta = {meta_json};

@@ -3,8 +3,8 @@ Central path resolver for all mutable app data.
 
 Resolution order for DATA_DIR:
   1. data_dir.txt next to the .exe (or main.py in dev)
-  2. %APPDATA%\\JAV Downloader   (Windows default)
-  3. ~/.jav-downloader           (fallback on non-Windows)
+    2. %APPDATA%\\JAV Video System (Windows default)
+    3. ~/.jav-video-system         (fallback on non-Windows)
 
 All config, secrets, Chrome profile, and NiceGUI session storage live here.
 The location can be changed from within the app's Settings dialog.
@@ -12,6 +12,12 @@ The location can be changed from within the app's Settings dialog.
 import os
 import sys
 from pathlib import Path
+
+
+APP_DATA_DIR_NAME = "JAV Video System"
+LEGACY_APP_DATA_DIR_NAME = "JAV Downloader"
+UNIX_DATA_DIR_NAME = ".jav-video-system"
+LEGACY_UNIX_DATA_DIR_NAME = ".jav-downloader"
 
 
 def _exe_dir() -> Path:
@@ -35,8 +41,16 @@ def _read_data_dir_override() -> Path | None:
 def _default_data_dir() -> Path:
     appdata = os.environ.get("APPDATA")
     if appdata:
-        return Path(appdata) / "JAV Downloader"
-    return Path.home() / ".jav-downloader"
+        new_dir = Path(appdata) / APP_DATA_DIR_NAME
+        legacy_dir = Path(appdata) / LEGACY_APP_DATA_DIR_NAME
+        if legacy_dir.exists() and not new_dir.exists():
+            return legacy_dir
+        return new_dir
+    new_dir = Path.home() / UNIX_DATA_DIR_NAME
+    legacy_dir = Path.home() / LEGACY_UNIX_DATA_DIR_NAME
+    if legacy_dir.exists() and not new_dir.exists():
+        return legacy_dir
+    return new_dir
 
 
 def resolve_data_dir() -> Path:

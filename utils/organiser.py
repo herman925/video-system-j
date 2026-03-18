@@ -2,7 +2,7 @@
 Organiser utilities: folder parsing, file renaming, folder moving,
 VTM thumbnail generation, image listing, and external tool launching.
 
-Ported from Video Organiser/Main.py and adapted for the JAV Downloader.
+Ported from Video Organiser/Main.py and adapted for JAV Video System.
 """
 
 import os

@@ -19,8 +19,8 @@ build.bat
 ```
 
 `build.bat` produces:
-- `dist/JAV Downloader/` — raw distributable folder
-- `setup/JAV Downloader Setup.exe` — installer (installs to `%LOCALAPPDATA%\Programs\JAV Downloader`)
+- `dist/JAV Video System/` — raw distributable folder
+- `setup/JAV Video System Setup.exe` — installer (installs to `%LOCALAPPDATA%\Programs\JAV Video System`)
 
 ## Architecture
 
@@ -28,8 +28,10 @@ build.bat
 
 **Data directory** (`utils/paths.py` → `DATA_DIR`): resolved at startup from:
 1. `data_dir.txt` next to the executable (or `main.py`)
-2. `%APPDATA%\JAV Downloader` (Windows default)
-3. `~/.jav-downloader` (non-Windows fallback)
+2. `%APPDATA%\JAV Video System` (Windows default for fresh installs)
+3. `~/.jav-video-system` (non-Windows fallback for fresh installs)
+
+Legacy installs continue to resolve `%APPDATA%\JAV Downloader` or `~/.jav-downloader` automatically until migrated.
 
 Contains: `config.json`, `.env`, `tracker.json`, `covers/`, NiceGUI storage.
 

@@ -1,11 +1,11 @@
 {
   "manifest_version": 3,
-  "name": "JAV Downloader Queue",
+  "name": "JAV Video System Queue",
   "version": "1.0",
-  "description": "Send JAV reference numbers from open tabs to the local downloader queue.",
+  "description": "Send JAV reference numbers from open tabs to the local JAV Video System queue.",
   "permissions": ["tabs", "windows"],
   "action": {
     "default_popup": "popup.html",
-    "default_title": "JAV Queue"
+    "default_title": "JAV Video System Queue"
   }
 }

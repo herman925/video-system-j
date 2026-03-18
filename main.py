@@ -1,5 +1,5 @@
 """
-JAV Downloader — NiceGUI local web app.
+JAV Video System — NiceGUI local web app.
 Usage:  python main.py   →   http://localhost:8765
 
 Supports single or multi-video input (comma / newline separated).
@@ -175,7 +175,7 @@ async def launchpad(client: Client) -> None:
         ui.html('<div class="lp-tagline">SELECT A MODULE TO GET STARTED</div>')
 
         with ui.element("div").classes("lp-grid"):
-            # ── JAV Downloader ──────────────────────────────────────────────
+            # ── JAV Video System ────────────────────────────────────────────
             with ui.element("div").classes("lp-card lp-card-dl").on(
                 "click", lambda: ui.navigate.to("/downloader")
             ):

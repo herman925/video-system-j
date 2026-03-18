@@ -4,7 +4,7 @@ root = Path(r"c:\Users\KeySteps\Downloads\Video Downloader JAV")
 src = (root / "main.py").read_text(encoding="utf-8")
 
 header = '''\
-"""JAV Downloader — /downloader page module.
+"""JAV Video System — /downloader page module.
 
 This module registers the @ui.page("/downloader") route and contains all
 supporting helpers used exclusively by the downloader UI.

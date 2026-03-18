@@ -1,4 +1,4 @@
-"""JAV Downloader — /downloader page module.
+"""JAV Video System — /downloader page module.
 
 This module registers the @ui.page("/downloader") route and contains all
 supporting helpers used exclusively by the downloader UI.

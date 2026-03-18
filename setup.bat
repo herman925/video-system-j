@@ -1,5 +1,5 @@
 @echo off
-echo === JAV Downloader Setup ===
+echo === JAV Video System Setup ===
 echo.
 
 REM Always recreate venv to fix broken paths (e.g. after moving the folder)

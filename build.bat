@@ -1,5 +1,5 @@
 @echo off
-echo === JAV Downloader - Build Executable ===
+echo === JAV Video System - Build Executable ===
 echo.
 
 if not exist "venv\Scripts\activate.bat" (
@@ -31,7 +31,7 @@ echo Building with PyInstaller (--onedir mode)...
 echo.
 
 pyinstaller ^
-    --name "JAV Downloader" ^
+    --name "JAV Video System" ^
     --noconfirm ^
     --windowed ^
     --icon NONE ^
@@ -56,7 +56,7 @@ if errorlevel 1 (
     exit /b 1
 )
 
-set "DIST_DIR=dist\JAV Downloader"
+set "DIST_DIR=dist\JAV Video System"
 
 REM --- Copy nodriver Chrome for Testing binaries ---------------------------
 echo.
@@ -104,16 +104,17 @@ REM -------------------------------------------------------------------------
 echo.
 echo === Build complete! ===
 echo.
-echo   Installer:  setup\JAV Downloader Setup.exe
+echo   Installer:  setup\JAV Video System Setup.exe
 echo   Raw folder: %DIST_DIR%\   (for testing without installing)
 echo.
 echo   The installer will:
-echo     - Install to %%LOCALAPPDATA%%\Programs\JAV Downloader  (no UAC needed)
+echo     - Install to %%LOCALAPPDATA%%\Programs\JAV Video System  (no UAC needed)
 echo     - Add a Start Menu entry
 echo     - Offer an optional desktop shortcut
 echo     - Register an uninstaller in Add/Remove Programs
 echo.
-echo   App data lives in: %APPDATA%\JAV Downloader
+echo   App data lives in: %APPDATA%\JAV Video System
+echo   Existing installs in: %APPDATA%\JAV Downloader continue to work automatically.
 echo   To change it: use Settings inside the app.
 echo.
 pause

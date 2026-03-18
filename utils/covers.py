@@ -2,7 +2,7 @@
 Shared cover image cache.
 
 Covers are stored at COVERS_DIR/{REF} Cover{ext} and shared between the
-JAV Downloader (main queue) and the Actress Tracker.  The extension is
+JAV Video System (main queue) and the Actress Tracker.  The extension is
 preserved from the source (e.g. .jpg, .webp, .png).
 
 Public API
