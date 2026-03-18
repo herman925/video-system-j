@@ -1,0 +1,46 @@
+# Progress Log
+
+## 2026-03-07
+
+- Reviewed existing tracker SVG badge implementation and settings controls.
+- Confirmed the main bug: tracker aura config is not read from the page closure correctly.
+- Pulled current Rive and PixiJS integration references with Exa.
+- Started the new visual-effects specification and implementation plan.
+- Added docs/plans/2026-03-07-rank-effects-spec.md.
+- Added docs/plans/2026-03-07-rank-effects-implementation-plan.md.
+- Fixed tracker/page.py to read `_user_cfg_cache` directly instead of going through globals().
+- Added tracker/effects_lab.py with a new `/tracker-effects-lab` route.
+- Implemented a live PixiJS Diamond prototype and a Rive integration shell for comparison.
+- Validated tracker.page and tracker.effects_lab imports successfully.
+- Recorded the renderer decision: PixiJS selected, Rive deferred unless a real `.riv` asset is authored.
+- Added tracker/pixi_badges.py as reusable PixiJS badge scaffolding.
+- Rewired tracker/effects_lab.py to consume the reusable PixiJS helper instead of owning the renderer inline.
+- Expanded /tracker-effects-lab into a playground-style multi-rank workspace with live controls, prompt output, and a full ladder gallery.
+- Extended tracker/pixi_badges.py from a Diamond-only prototype into a configurable multi-rank PixiJS badge renderer.
+- Aligned the lab defaults for Diamond, Ruby, and Sapphire with the newer tuned Pixi presets and added a dedicated top-tier focus surface inside the lab.
+- Added run_lab.bat to launch the lab separately on port 8766 without touching the main app port.
+- Replaced the ad-hoc lab launcher with run_lab.py so port 8766 serves a valid root route that redirects into /tracker-effects-lab instead of 404ing on '/'.
+- Started downloader/tracker integration work for copy-reference, cover-size settings, tracker/downloader deep links, and stable score-based name coloring.
+- Confirmed the relevant touch points: `tracker/page.py` owns copy-ref and search state, `downloader/components/settings.py` owns persisted UI settings, `downloader/components/inspector.py` already has tracker navigation helpers, and `downloader/page.py` still uses name-based sidebar rating lookup.
+- Added ref-aware tracker lookup helpers in `tracker/store.py` and rewired downloader inspector/sidebar coloring to use stable ref-backed identity matching.
+- Added downloader reference copy actions in both the queue row and inspector top bar.
+- Added tracker-to-downloader and downloader-to-tracker reference jump actions using shared NiceGUI session state.
+- Added a downloader inspector cover-width setting persisted in `config.json` as `downloader_cover_w` and applied live through a CSS variable.
+- Validated the new flows against an isolated app instance on port 8767 and fixed a restore-path bug where tracker-to-downloader jumps were skipped if the downloader queue was empty.
+- Fixed downloader qBittorrent auto-refresh by re-arming inspector polling timers when a cached inspector is shown again and when magnet/manual refresh actions run.
+- Validated the downloader patch with a clean import check for `downloader.page` and `downloader.components.inspector`.
+- Reviewed organiser/page.py, theme.css, and the shared settings dialog to trace why the organiser layout regressed.
+- Split organiser left-panel state into separate Rename and Move widths with legacy fallback so existing users do not lose their preferred layout.
+- Tightened mover list column widths and rebuilt the mover inspector into compact Folder / Preparation / Destination action cards plus a two-card Actor / Move Preview editor strip.
+- Updated the shared settings dialog to persist both organiser widths instead of one shared value.
+- Ran editor diagnostics on the touched files; organiser/page.py and downloader/components/settings.py are clean, and theme.css only reports pre-existing Safari compatibility warnings unrelated to this change.
+- Fixed `utils.organiser.load_mover_folders()` so date-prefixed folders can fall back to strict pre-renamer folder-name parsing for actor and video detection instead of requiring renamed video filenames.
+- Validated the mover fallback with a temp-directory probe using the reported `20250826 - ... 東實果 SONE-878` naming pattern; the folder is now returned by `load_mover_folders()` with actor and video name populated.
+- Removed the organiser thumbnail-generation modal and replaced it with inline progress state on mover rows plus the active right-hand inspector.
+- Added per-folder thumbnail generation tracking so only the folder currently being processed shows a spinner, and only that folder is rescanned after completion to update the thumb tick/file list.
+- Disabled move and batch-thumbnail actions while thumbnail generation is running to avoid conflicting organiser actions.
+- Added a dev-only NiceGUI reload path via `JAV_DEV_RELOAD` and `run_dev.bat`, while keeping `run.bat` stable for normal use.
+- Aligned `run_dev.bat` with `run.bat` so it kills stale `main.py` processes before startup.
+- Started a renamer right-panel redesign that mirrors mover's card-based visual language but moves renamer onto separate `org-renamer-*` classes to avoid future mover regressions.
+- Completed the renamer right-panel split so the cover rail, action strip, and rename preview now render in renamer-only containers instead of reusing mover's side meta flow.
+- Fixed a follow-up layout bug where the renamer detail row still lived inside the old side column, then simplified the renamer hero CSS into a compact single-column rail to match the new markup.

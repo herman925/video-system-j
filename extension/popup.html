@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JAV Queue</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      width: 400px; min-height: 80px;
+      background: #0d0d11; color: #d1d5db;
+      font-family: system-ui, sans-serif; font-size: 13px;
+    }
+    header {
+      padding: 11px 14px 9px;
+      border-bottom: 1px solid #1a1a24;
+      display: flex; align-items: center; gap: 8px;
+    }
+    header span.title { font-weight: 700; color: #c4b5fd; font-size: 14px; }
+    header span.sub   { font-size: 11px; color: #4b5563; margin-left: auto; }
+
+    #summary {
+      padding: 5px 14px;
+      font-size: 11px; color: #4b5563;
+      border-bottom: 1px solid #1a1a24;
+      min-height: 22px; line-height: 1.6;
+    }
+
+    #list { max-height: 380px; overflow-y: auto; padding-bottom: 4px; }
+
+    /* Window group header */
+    .win-hdr {
+      padding: 7px 14px 4px;
+      font-size: 10px; font-weight: 700; letter-spacing: .06em;
+      color: #374151; text-transform: uppercase;
+      border-top: 1px solid #1a1a24;
+    }
+    .win-hdr:first-child { border-top: none; }
+
+    /* Item row */
+    .item {
+      padding: 6px 14px 5px 14px; cursor: pointer;
+      transition: background 0.1s; user-select: none;
+    }
+    .item:hover { background: #13131c; }
+    .item.checked { background: #0f0f1a; }
+
+    .item-top {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .item-top input[type=checkbox] {
+      accent-color: #818cf8; width: 14px; height: 14px; flex-shrink: 0; cursor: pointer;
+    }
+    .item-top .ref {
+      font-family: monospace; font-weight: 700; font-size: 13px;
+      color: #c4b5fd; min-width: 94px;
+    }
+    .item-top .site-badge {
+      font-size: 10px; font-weight: 600; padding: 1px 6px;
+      border-radius: 4px; background: #1e1e2a; color: #6366f1;
+      flex-shrink: 0;
+    }
+
+    .item-meta {
+      margin-top: 3px; margin-left: 22px;
+      display: flex; flex-direction: column; gap: 1px;
+    }
+    .item-meta .tab-title {
+      font-size: 11px; color: #9ca3af;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      max-width: 340px;
+    }
+    .item-meta .tab-url {
+      font-size: 10px; color: #374151;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      max-width: 340px;
+    }
+
+    .empty { padding: 20px 14px; color: #374151; text-align: center; }
+
+    footer {
+      padding: 10px 14px;
+      border-top: 1px solid #1a1a24;
+      display: flex; gap: 6px; align-items: center;
+    }
+    .btn-primary {
+      flex: 1; padding: 7px 0; border: none; border-radius: 6px;
+      font-size: 12px; font-weight: 600; cursor: pointer;
+      background: #4f46e5; color: #fff; transition: opacity 0.15s;
+    }
+    .btn-primary:hover:not(:disabled) { opacity: 0.85; }
+    .btn-primary:disabled { opacity: 0.4; cursor: default; }
+    .btn-ghost {
+      flex: 0 0 auto; padding: 7px 10px; border: none; border-radius: 6px;
+      font-size: 11px; font-weight: 600; cursor: pointer;
+      background: #1e1e2a; color: #818cf8; transition: opacity 0.15s;
+    }
+    .btn-ghost:hover { opacity: 0.85; }
+
+    #status { font-size: 11px; color: #4b5563; padding: 0 14px 8px; min-height: 16px; }
+
+    /* Confirm view */
+    .confirm-hdr { padding: 8px 14px 4px; font-size: 11px; color: #4b5563; }
+    .confirm-row {
+      display: flex; align-items: center; gap: 8px;
+      padding: 5px 14px;
+    }
+    .ref-edit {
+      font-family: monospace; font-weight: 700; font-size: 12px;
+      background: #1a1a24; color: #c4b5fd; border: 1px solid #27272a;
+      border-radius: 4px; padding: 4px 8px; width: 120px; outline: none;
+    }
+    .ref-edit:focus { border-color: #6366f1; }
+    .confirm-meta {
+      font-size: 10px; color: #4b5563;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="title">🎬 JAV Queue</span>
+    <span class="sub">localhost:8765</span>
+  </header>
+  <div id="summary"></div>
+  <div id="list"><div class="empty">Scanning tabs…</div></div>
+  <div id="status"></div>
+  <footer id="footer"></footer>
+  <script src="popup.js"></script>
+</body>
+</html>

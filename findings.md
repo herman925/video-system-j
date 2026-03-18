@@ -1,0 +1,28 @@
+# Findings
+
+- The existing tracker badge is an inline SVG string generator in tracker/page.py, not a static SVG asset pipeline.
+- The current aura controls are exposed in downloader/components/settings.py, but tracker/page.py reads `_user_cfg_cache` through `globals()`, which is very likely why settings changes do not visually register.
+- The badge base already uses a linear gradient, but most emitted aura layers are flat fills, which is why the effect reads as hard-edged instead of luminous.
+- PixiJS is feasible as a runtime proof-of-concept inside NiceGUI via CDN and canvas embedding.
+- Rive is feasible as an integration path, but a proper Diamond badge requires an authored `.riv` asset; the runtime alone is not enough to create a good result programmatically.
+- A new `/tracker-effects-lab` route now compares the current Diamond baseline against a live PixiJS Diamond prototype and a Rive integration shell.
+- The Rive panel is intentionally a missing-asset state until a real Diamond `.riv` file is authored.
+- PixiJS is now the selected renderer path for continued Diamond-rank work.
+- The PixiJS Diamond renderer has been extracted into tracker/pixi_badges.py so it can be reused outside the lab.
+- The next useful unit of work is not another single-rank mockup; it is a playground that keeps the whole ladder visible while one rank is tuned in detail.
+- A configurable PixiJS host is sufficient for lab design work across all current ranks without committing the production tracker badge to PixiJS yet.
+- Tracker already copies video refs with a small button in `tracker/page.py` using `navigator.clipboard.writeText(...)`.
+- Downloader already has a generic clipboard helper in `downloader/components/inspector.py`; the missing work is exposing a matching reference-copy action in the downloader UI.
+- Downloader already bridges into tracker by actress id through `app.storage.user["_tracker_jump_actress_id"]`; there is no equivalent ref-based jump yet.
+- Tracker search/filter state is local to `tracker/page.py` (`search_ref`, `search_mode_ref`, `selected_video_ref`) and currently has no URL or storage-based ref deep-link hydration.
+- Downloader settings already persist tracker cover width as `tracker_cover_w` in `config.json`; downloader itself does not yet expose its own inspector cover-size setting.
+- Downloader sidebar actress coloring currently depends on `build_name_to_rating(tracker_data)` in `downloader/page.py`, so renamed actresses can lose score styling there even though tracker identity is actress-id based.
+- Downloader qBittorrent progress polling depended on per-inspector timers that are cancelled in `show_inspector()` when the user switches away from an item.
+- Cached inspectors did not recreate those timers when shown again, so download status could get stuck until a manual refresh.
+- The safest fix is to let the inspector own a small timer re-arm helper and call it when the inspector is shown again and after magnet/manual refresh actions.
+- Organiser stored a single `organiser_left_panel_width` value and reused it for both Rename and Move, which is why the two workflows could not be tuned independently.
+- The organiser settings dialog also only exposed one organiser width slider, so any page-only fix would have been overwritten on the next settings save unless the dialog contract changed too.
+- The mover list was spending too much left-panel space on status columns, while the right inspector stacked actions and preview blocks vertically with unused whitespace.
+- The cleanest organiser fix is a coordinated page + settings + theme update: per-tab width keys with legacy fallback, narrower mover row metrics, and a card-based mover inspector layout.
+- The organiser right panel was still sharing too many visual primitives between Rename and Move; the safest path is to let mover remain the reference design while renamer gets its own `org-renamer-*` layout classes and only shares low-risk utilities like diff rows and file-dock primitives.
+- Renamer detail content could not be safely restyled while it lived inside the old side meta column; the stable fix was to move the renamer action/preview block below the hero in the markup and then simplify `.org-renamer-hero` into a dedicated single-column cover rail.

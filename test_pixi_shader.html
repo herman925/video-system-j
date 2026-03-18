@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/pixi.js@8.9.2/dist/pixi.min.js"></script>
+</head>
+<body>
+    <script>
+    (async () => {
+        const app = new PIXI.Application();
+        await app.init({ width: 400, height: 400 });
+        document.body.appendChild(app.canvas);
+        
+        try {
+            const frag = 
+                in vec2 vTextureCoord;
+                out vec4 finalColor;
+                void main() {
+                    finalColor = vec4(vTextureCoord.x, vTextureCoord.y, 1.0, 1.0);
+                }
+            ;
+            const vert = 
+                in vec2 aPosition;
+                out vec2 vTextureCoord;
+                uniform vec4 uInputSize;
+                uniform vec4 uOutputFrame;
+                uniform vec4 uOutputTexture;
+                uniform mat3 uProjectionMatrix;
+                void main(void){
+                    vec2 position = aPosition * uOutputFrame.zw + uOutputFrame.xy;
+                    position.x = position.x * (2.0 / uOutputTexture.x) - 1.0;
+                    position.y = position.y * (2.0*uOutputTexture.z / uOutputTexture.y) - uOutputTexture.w;
+                    gl_Position = vec4(position, 0.0, 1.0);
+                    vTextureCoord = aPosition * (uOutputFrame.zw * uInputSize.zw);
+                }
+            ;
+            const filter = new PIXI.Filter({
+                glProgram: PIXI.GlProgram.from({ vertex: vert, fragment: frag }),
+                resources: { }
+            });
+            const sprite = new PIXI.Sprite(PIXI.Texture.WHITE);
+            sprite.width = 400;
+            sprite.height = 400;
+            sprite.filters = [filter];
+            app.stage.addChild(sprite);
+            console.log("SHADER SUCCESS");
+        } catch (e) {
+            console.error("SHADER ERROR", e);
+        }
+    })();
+    </script>
+</body>
+</html>
